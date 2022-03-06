@@ -53,11 +53,19 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Home',
-  props: {
-    msg: String
+  async created(){
+    
+     await axios.get("https://online-auction0.herokuapp.com/v1/authentication/user",
+   { 
+     headers: { 
+       Authorization:'bearer ' + localStorage.getItem('token') 
+       } 
+       })
+   
   }
 }
 </script>

@@ -46,12 +46,12 @@
         />
         <input
           type="password"
-          v-model="checkpass"
+          
           placeholder="check Password"
           class="outline-none px-4 bg-gray-200 mt-3 border-2 lg:border-red-500 sm:border-blue-500 rounded-md h-10 w-80"
         />
         <input
-          type="number"
+          type="text"
           v-model="phonenumber"
           placeholder="phonenumber"
           class="outline-none px-4 bg-gray-200 mt-3 border-2 lg:border-red-500 sm:border-blue-500 rounded-md h-10 w-80"
@@ -88,6 +88,7 @@
   </form>
 </template>
 <script>
+import axios from "axios"
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Registeration",
@@ -96,21 +97,23 @@ export default {
       username: "",
       password: "",
       email: "",
-      checkpass: "",
       phonenumber: "",
     };
   },
   methods: {
-    handlesubmit() {
-      const data ={
-        username:this.username,
-        password:this.password,
-        email:this.email,
-        checkpass:this.checkpass,
-        phonenumber:this.phonenumber,
-
-      };
-      console.log(data)
+   async handlesubmit() {
+   
+   await axios.post(
+          "https://online-auction0.herokuapp.com/v1/authentication/user",
+          {
+             userName: this.username,
+             email: this.email,
+             password: this.password,
+             phoneNumber: this.phonenumber,
+          }
+          )
+          this.$router.push('/login')
+   
     },
   },
 };
