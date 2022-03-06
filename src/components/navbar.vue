@@ -12,7 +12,7 @@
             <svg class="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
-            <span class="font-bold">Better Dev</span>
+            <router-link to="/"><span class="font-bold">OAS</span></router-link>
           </a>
         </div>
 
@@ -25,8 +25,8 @@
 
       <!-- secondary nav -->
       <div class="hidden md:flex items-center space-x-1">
-        <a href="login" class="py-5 px-3">Login</a>
-        <a href="register" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Signup</a>
+        <router-link to="/login" class="py-5 px-3">Login</router-link>
+        <router-link to="/register" class="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Signup</router-link>
       </div>
 
       <!-- mobile button goes here -->
@@ -53,20 +53,11 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Home',
-  async created(){
-    
-     await axios.get("https://online-auction0.herokuapp.com/v1/authentication/user",
-   { 
-     headers: { 
-       Authorization:'bearer ' + localStorage.getItem('token') 
-       } 
-       })
-   
-  }
+  name: 'nav',
+
 }
 </script>
 

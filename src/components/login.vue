@@ -57,17 +57,18 @@
           >
             Sign Up
           </button>
-          <input type="submit" value="Sign in"
+          <input
+            type="submit"
+            value="Sign in"
             class="hover bg-white lg:border-red-500 sm:border-blue-500 border-2 w-36 h-10 rounded-md lg:text-red-500 sm:text-blue-500"
-          >
-   
+          />
         </div>
       </div>
     </nav>
   </form>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "login",
@@ -78,14 +79,16 @@ export default {
     };
   },
   methods: {
-   async handlelogin(){
-    
-   const response =  await axios.post("https://online-auction0.herokuapp.com/v1/authentication/login",
-     {
-       email:this.email,
-       password:this.password,
-     })
-        localStorage.setItem('token', response.data.token)
+    async handlelogin() {
+      const response = await axios.post(
+        "https://online-auction0.herokuapp.com/v1/authentication/login",
+        {
+          email: this.email,
+          password: this.password,
+        }
+      );
+      localStorage.setItem("token", response.data.accessToken);
+      this.$router.push("/");
     },
   },
 };
