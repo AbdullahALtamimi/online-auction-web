@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-     <h1 v-if="user" class="text-4xl text-center mt-52 ">Hello {{user.userName}}</h1>
      <h1 v-if="!user" class="text-4xl text-center mt-52 ">You are not logged in </h1>
   </div>
 </template>

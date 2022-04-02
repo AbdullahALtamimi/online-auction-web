@@ -1,6 +1,6 @@
 <template>
   <nav>
-     <navbar :user="user" />
+     <navbar :user="user"/>
   </nav>
   <router-view :user="user"/>
 </template>
@@ -14,6 +14,7 @@
    export default {
   name: "App",
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     navbar,
   },
    data(){
@@ -29,7 +30,7 @@
        Authorization:'bearer ' + window.localStorage.getItem('token') 
        } 
        })
-       console.log(response.data)
+       
        
        this.user = response.data;
    

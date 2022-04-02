@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import registeration from '../views/register.vue'
 import login from '../views/loginv.vue'
+import additem from '../views/additemview.vue'
+
+
 
 const routes = [
   {
@@ -26,6 +29,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: login
+  },
+  {
+    path: '/AddItem',
+    name: 'AddItem',
+    component: additem
   },
 ]
 

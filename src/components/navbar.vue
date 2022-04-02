@@ -39,12 +39,16 @@
                 >Acount</a
               >
               <a
-                href="register"
+                href="additem"
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 >Add item</a
               >
+              <a
+                href="register"
+                class="py-5 px-3 text-gray-700 hover:text-gray-900"
+                >My items</a
+              >
             </div>
-            <div v-if="!user"></div>
           </div>
 
           <!-- secondary nav -->
@@ -57,6 +61,7 @@
             >
           </div>
           <div v-if="user" class="hidden md:flex items-center space-x-1">
+            <h1 class="mr-5 text-lg">{{ user.userName }}</h1>
             <a
               href="javascript:void(0)"
               @click="handleclick()"
