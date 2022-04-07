@@ -34,7 +34,7 @@
             <!-- primary nav -->
             <div v-if="user" class="hidden md:flex items-center space-x-1">
               <a
-                href="login"
+                href="#"
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 >Acount</a
               >
@@ -43,10 +43,10 @@
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 >Add item</a
               >
-              <a
+              <router-link to="/myitem"
                 href="register"
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
-                >My items</a
+                >My items</router-link
               >
             </div>
           </div>

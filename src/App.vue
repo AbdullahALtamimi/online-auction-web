@@ -2,7 +2,7 @@
   <nav>
      <navbar :user="user"/>
   </nav>
-  <router-view :user="user"/>
+  <router-view :data="data" :user="user"/>
 </template>
 
 <style>
@@ -11,6 +11,7 @@
 <script>
    import navbar from './components/navbar.vue'
    import axios from 'axios'
+   
    export default {
   name: "App",
   components: {
@@ -20,7 +21,11 @@
    data(){
     return{
       user:null,
+      data:"",
     }
+  },
+  methodes:{
+      
   },
    async created(){
     
@@ -30,10 +35,16 @@
        Authorization:'bearer ' + window.localStorage.getItem('token') 
        } 
        })
-       
-       
        this.user = response.data;
+      const result =  await axios.get("https://online-auction0.herokuapp.com/v1/myitems", {
+        headers: {
+          Authorization: "bearer " + window.localStorage.getItem("token"),
+        },
+      });
+        result.data = this.data
+         
    
-  }
+  },
+  
 };
 </script>

@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import registeration from '../views/register.vue'
 import login from '../views/loginv.vue'
 import additem from '../views/additemview.vue'
-
+import MyItem from '../views/MyItemView.vue'
 
 
 const routes = [
@@ -34,6 +34,11 @@ const routes = [
     path: '/AddItem',
     name: 'AddItem',
     component: additem
+  },
+  {
+    path: '/MyItem',
+    name: 'MyItem',
+    component: MyItem
   },
 ]
 

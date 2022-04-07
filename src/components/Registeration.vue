@@ -1,5 +1,5 @@
 <template lang="">
- <div class="lg:flex">
+  <div class="lg:flex">
     <div class="lg:w-1/2 xl:max-w-screen-sm">
       <div
         class="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12"
@@ -37,7 +37,7 @@
         </div>
       </div>
       <div
-        class=" px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
+        class="px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
         <h2
           class="-mt-8 text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
@@ -45,8 +45,8 @@
           Sign Up
         </h2>
         <div class="mt-12">
-          <form @submit.prevent="handlelogin()">
-           <div>
+          <form @submit.prevent="handlesubmit()">
+            <div>
               <div class="text-sm font-bold text-gray-700 tracking-wide">
                 Username
               </div>
@@ -68,13 +68,12 @@
                 placeholder="mike@gmail.com"
               />
             </div>
-            
+
             <div class="mt-4">
               <div class="flex justify-between items-center">
                 <div class="text-sm font-bold text-gray-700 tracking-wide">
                   Password
                 </div>
-            
               </div>
               <input
                 class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
@@ -83,14 +82,14 @@
                 placeholder="Enter your password"
               />
             </div>
-             <div>
+            <div>
               <div class="mt-4 text-sm font-bold text-gray-700 tracking-wide">
                 Phonenumber
               </div>
               <input
+                v-model="phonenumber"
                 class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="number"
-                v-model="phonenumber"
                 placeholder="PhoneNumber"
               />
             </div>
@@ -98,11 +97,10 @@
               <button
                 class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg"
               >
-                Log In
+                Sign Up
               </button>
             </div>
           </form>
-        
         </div>
       </div>
     </div>
@@ -271,7 +269,7 @@
   </div>
 </template>
 <script>
-import axios from "axios"
+import axios from "axios";
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Registeration",
@@ -281,27 +279,25 @@ export default {
       password: "",
       email: "",
       phonenumber: "",
-      check_pass:"",
-
     };
   },
   methods: {
-   async handlesubmit() {
-   if(this.password != this.check_pass){
-        alert("your password doesn't match ")
-   }
-   else{
-   await axios.post(
-          "https://online-auction0.herokuapp.com/v1/authentication/user",
-          {
-             userName: this.username,
-             email: this.email,
-             password: this.password,
-             phoneNumber: this.phonenumber,
-          }
-          )
-          this.$router.push('/login')
-           }
+    async handlesubmit() {
+      await axios.post(
+        "https://online-auction0.herokuapp.com/v1/authentication/user",
+        {
+          userName: this.username,
+          email: this.email,
+          password: this.password,
+          phoneNumber: this.phonenumber,
+        },
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      );
+      this.$router.push("/login");
     },
   },
 };

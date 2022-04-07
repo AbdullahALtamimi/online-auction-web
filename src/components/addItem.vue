@@ -47,12 +47,7 @@
                     id="email"
                     type="file"
                   />
-                  <button
-                    @click="onupload()"
-                    class="bg-blue-500 hover:bg-blue-800 text-white py-1 px-3 rounded-full"
-                  >
-                    upload
-                  </button>
+                 
                 </div>
               </div>
               <div class="flex items-center justify-between mt-8">
@@ -88,7 +83,7 @@ export default {
   methods: {
     async senditem() {
       event.preventDefault();
-      await axios.post(
+    const result =  await axios.post(
         "https://online-auction0.herokuapp.com/v1/item",
         {
           name: this.pname,
@@ -100,22 +95,25 @@ export default {
           },
         }
       );
-    },
-    OnFileSelected(event) {
-      this.selectedfile = event.target.files[0];
-    },
-    onupload() {
-      event.preventDefault()
+      const id = result.data.id;
+      
       const fd = new FormData();
-      fd.append("image".this.selectedfile, this.selectedfile.name);
+      fd.append("photo", this.selectedfile);
+      fd.append("ID",id);
       axios
         .post("https://online-auction0.herokuapp.com/v1/itemPhoto", fd, {
-           headers: {
+          headers: {
             Authorization: "bearer " + window.localStorage.getItem("token"),
           },
         })
         .then((res) => console.log(res));
     },
+    OnFileSelected(event) {
+      this.selectedfile = event.target.files[0];
+    },
+    // onupload() {
+    //   event.preventDefault();
+    // },
   },
 };
 </script>
