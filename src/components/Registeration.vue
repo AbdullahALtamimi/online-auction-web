@@ -289,7 +289,7 @@ export default {
           userName: this.username,
           email: this.email,
           password: this.password,
-          phoneNumber: this.phonenumber,
+          phoneNumber: "6357463",
         },
         {
           headers: {

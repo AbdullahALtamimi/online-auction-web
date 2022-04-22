@@ -24,9 +24,7 @@
       data:"",
     }
   },
-  methodes:{
-      
-  },
+ 
    async created(){
     
     const response = await axios.get("https://online-auction0.herokuapp.com/v1/authenication/user",
@@ -35,15 +33,7 @@
        Authorization:'bearer ' + window.localStorage.getItem('token') 
        } 
        })
-       this.user = response.data;
-      const result =  await axios.get("https://online-auction0.herokuapp.com/v1/myitems", {
-        headers: {
-          Authorization: "bearer " + window.localStorage.getItem("token"),
-        },
-      });
-        result.data = this.data
-         
-   
+       this.user = response.data;   
   },
   
 };
