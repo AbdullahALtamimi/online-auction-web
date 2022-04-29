@@ -278,7 +278,7 @@ export default {
       username: "",
       password: "",
       email: "",
-      phonenumber: "",
+      phonenumber: null,
     };
   },
   methods: {
@@ -289,7 +289,7 @@ export default {
           userName: this.username,
           email: this.email,
           password: this.password,
-          phoneNumber: "6357463",
+          phoneNumber: this.phonenumber
         },
         {
           headers: {

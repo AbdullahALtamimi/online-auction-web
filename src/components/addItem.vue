@@ -1,8 +1,8 @@
 <template lang="">
-  <div class="bg-blue-400 h-screen">
-    <div class="font-sans antialiased bg-grey-lightest">
+  <div class="bg-blue-400 h-screen w-full">
+    <div class="font-sans antialiased  ">
       <!-- Content -->
-      <div class="w-full bg-grey-lightest" style="padding-top: 4rem">
+      <div class="w-full " style="padding-top: 4rem">
         <div class="container mx-auto py-8">
           <div class="w-5/6 lg:w-1/2 mx-auto bg-white rounded shadow-lg">
             <div class="py-4 px-8">
@@ -50,6 +50,22 @@
                  
                 </div>
               </div>
+               <div class="mb-4">
+                <label
+                  class="block text-grey-darker text-sm font-bold mb-2"
+                  for="email"
+                  >Upload file</label
+                >
+                <div class="border ">
+                  <textarea
+                    class="appearance-none w-5/6 rounded py-2 px-3 text-grey-darker"
+                    v-model="description"
+                    id="email"
+                    type="file"
+                  textarea/>
+                 
+                </div>
+              </div>
               <div class="flex items-center justify-between mt-8">
                 <button
                   @click="senditem()"
@@ -65,6 +81,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
 import axios from "axios";
@@ -78,6 +95,7 @@ export default {
       pname: "",
       start_price: "",
       selectedfile: null,
+      description:"",
     };
   },
   methods: {
@@ -88,6 +106,7 @@ export default {
         {
           name: this.pname,
           startingPrice: this.start_price,
+          description:this.description
         },
         {
           headers: {
@@ -107,13 +126,13 @@ export default {
           },
         })
         .then((res) => console.log(res));
+
+     
     },
     OnFileSelected(event) {
       this.selectedfile = event.target.files[0];
     },
-    // onupload() {
-    //   event.preventDefault();
-    // },
+   
   },
 };
 </script>

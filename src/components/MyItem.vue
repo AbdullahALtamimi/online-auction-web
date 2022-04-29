@@ -1,53 +1,48 @@
 <template lang="">
-  <div class="">
-    <div v-for="(item) in object" :key="item.name">
-      <div class="p-10 w-1/3 float-left bg-blue-400">
+  <div class="h-full bg-gradient-to-b from-green-200 to-green-500">
+    <div v-for="(item, index) in object" :key="item.name">
+      <div class="p-10 w-1/3 float-left">
         <!--Card 1-->
-        <div class="bg-white rounded overflow-hidden shadow-lg">
+        <div class="bg-white rounded-md overflow-hidden shadow-lg">
           <img class="w-full h-52" :src="item.photoUrl" />
           <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">name:{{ item.name }}</div>
+            <div class="font-bold text-xl mb-2">
+              {{ index + 1 }})name:{{ item.name }}
+            </div>
             <div class="font-bold text-xl mb-2">
               Price:{{ item.startingPrice }} Dinars
             </div>
             <p class="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, Nonea! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
+              {{ item.description }}
             </p>
           </div>
-          <div class="px-6 pt-4 pb-2">
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#photography</span
-            >
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#travel</span
-            >
-            <span
-              class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-              >#winter</span
-            >
+          <div class="ml-1/2 pt-2 pb-2">
             <button
-              @click="publish()"
-              id="delete-btn"
-              class="ml-5 bg-blue-500 hover:bg-blue-800 text-white py-1 px-3 rounded-full"
+              @click="publish(item.id)"
+              id="pub-btn"
+              class="ml-5 delay-400 duration-300 bg-blue-500 hover:bg-blue-800 text-white py-1 px-4 rounded-full"
             >
               Publish
+            </button>
+            <button
+              @click="deletitem(item.id)"
+              id="delete-btn"
+              class="ml-5 bg-red-500 delay-400 duration-300 hover:bg-red-800 text-white py-1 px-4 rounded-full"
+            >
+              Delete
             </button>
           </div>
         </div>
       </div>
     </div>
     <div
-      class="bg-black bg-opacity-50 left-1/3  top-1/2 -translate-x-1/2 fixed -translate-y-1/2 hidden hello"
+      class="bg-black bg-opacity-50 left-1/3 top-1/2 -translate-x-1/2 fixed -translate-y-1/2 hidden hello"
       id="overlay"
     >
       <div
         class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800"
       >
-        <div class=" flex justify-between items-center w-80">
+        <div class="flex justify-between items-center w-80">
           <h4 class="text-lg font-bold">Confirm Delete?</h4>
           <svg
             @click="close()"
@@ -64,8 +59,13 @@
           </svg>
         </div>
         <div class="mt-2 text-sm">
-           <label name="date">Enter the expiration date:</label>
-           <input v-model="date" class="ml-3 bg-gray-200 border-2 border-blue-500 rounded-md" type="date" id="date">
+          <label name="date">Enter the expiration date:</label>
+          <input
+            v-model="date"
+            class="ml-3 bg-gray-200 border-2 border-blue-500 rounded-md"
+            type="date"
+            id="date"
+          />
         </div>
         <div class="mt-3 flex justify-end space-x-3">
           <button
@@ -94,7 +94,8 @@ export default {
   data() {
     return {
       object: "",
-      date:"",
+      date: "",
+      currentselecteditem: "",
     };
   },
 
@@ -108,17 +109,48 @@ export default {
       .then((res) => (this.object = res.data));
   },
   methods: {
-    publish() {
+    publish(itemid) {
       const popup = document.querySelector(".hello");
       popup.style.display = "block";
+      this.currentselecteditem = itemid;
     },
     close() {
       const popup = document.querySelector(".hello");
       popup.style.display = "none";
     },
-    sendauc(){
-         axios.post
-    }
+    async sendauc() {
+      var date = new Date(this.date);
+      const isoStr = date.toISOString();
+      await axios.post(
+        "https://online-auction0.herokuapp.com/v1/auction",
+        {
+          expireDate: isoStr,
+          itemId: this.currentselecteditem,
+        },
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      );
+    },
+     deletitem(itemid) {
+       axios.delete(
+        `https://online-auction0.herokuapp.com/v1/item?itemId=${itemid}`,
+        {
+           headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+        },
+       
+        {
+         
+           id:itemid
+         }
+      
+      );
+      
+    },
   },
 };
 </script>
