@@ -1,16 +1,16 @@
-<template lang="">
-  <div class="h-full bg-gradient-to-b from-green-200 to-green-500">
-    <div v-for="(item, index) in object" :key="item.name">
-      <div class="p-10 w-1/3 float-left">
+<template class="h-full" lang="">
+  <div class="">
+    <div  v-for="(item) in object" :key="item.name">
+      <div class="bg-blue-400 p-10 w-1/3 float-left">
         <!--Card 1-->
-        <div class="bg-white rounded-md overflow-hidden shadow-lg">
+        <div :style="{background:colorVariant}" class="bg-white rounded-md overflow-hidden max-h-96 shadow-xl">
           <img class="w-full h-52" :src="item.photoUrl" />
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">
-              {{ index + 1 }})name:{{ item.name }}
+              <span class="text-blue-500">name:</span> {{ item.name }}
             </div>
             <div class="font-bold text-xl mb-2">
-              Price:{{ item.startingPrice }} Dinars
+             <span class="text-blue-500">Price:</span>  {{ item.startingPrice }} Dinars
             </div>
             <p class="text-gray-700 text-base">
               {{ item.description }}
@@ -27,7 +27,7 @@
             <button
               @click="deletitem(item.id)"
               id="delete-btn"
-              class="ml-5 bg-red-500 delay-400 duration-300 hover:bg-red-800 text-white py-1 px-4 rounded-full"
+              class="ml-5 bg-red-500 delay-400 duration-300 hover:bg-red-800 text-white py-1 px-4 rounded-full sm:ml-1 sm:absolute "
             >
               Delete
             </button>
@@ -96,6 +96,7 @@ export default {
       object: "",
       date: "",
       currentselecteditem: "",
+      colorVariant:""
     };
   },
 
@@ -134,22 +135,21 @@ export default {
         }
       );
     },
-     deletitem(itemid) {
-       axios.delete(
-        `https://online-auction0.herokuapp.com/v1/item?itemId=${itemid}`,
-        {
-           headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
+    deletitem(itemid) {
+      axios
+        .delete(
+          `https://online-auction0.herokuapp.com/v1/item?itemId=${itemid}`,
+          {
+            headers: {
+              Authorization: "bearer " + window.localStorage.getItem("token"),
+            },
           },
-        },
-       
-        {
-         
-           id:itemid
-         }
-      
-      );
-      
+
+          {
+            id: itemid,
+          }
+        )
+        ;
     },
   },
 };
