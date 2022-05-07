@@ -36,6 +36,20 @@
           </div>
         </div>
       </div>
+        <div v-if="Emailerr || passworderr || usererr || message" class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
+         <p v-if="Emailerr" class="text-center">
+           {{Emailerr}}
+         </p >
+         <p class="text-center" v-if="passworderr">
+           {{passworderr}}       
+         </p>
+         <p class="text-center" v-if="usererr">
+           {{usererr}}
+         </p>
+          <p class="text-center" v-if="messagerr">
+           {{messagerr}}
+         </p>
+      </div>
       <div
         class="px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
@@ -279,17 +293,22 @@ export default {
       password: "",
       email: "",
       phonenumber: null,
+      Emailerr:"",
+      passworderr:"",
+      usererr:"",
+      messagerr:""
     };
   },
   methods: {
     async handlesubmit() {
-      await axios.post(
+       try{
+           await axios.post(
         "https://online-auction0.herokuapp.com/v1/authentication/user",
         {
           userName: this.username,
           email: this.email,
           password: this.password,
-          phoneNumber: this.phonenumber
+          phoneNumber: "45367890"
         },
         {
           headers: {
@@ -298,6 +317,12 @@ export default {
         }
       );
       this.$router.push("/login");
+       }catch(e){
+          this.passworderr = e.response.data.errors.Password;
+          this.Emailerr = e.response.data.errors.Email;
+          this.usererr = e.response.data.errors.UserName;
+          this.messagerr = e.response.data.message
+       }
     },
   },
 };

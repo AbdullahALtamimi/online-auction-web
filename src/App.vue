@@ -1,6 +1,8 @@
 <template>
   <nav>
      <navbar :user="user"/>
+    
+      
   </nav>
   <transition
   mode="out-in"
@@ -28,6 +30,7 @@
     return{
       user:null,
       data:"",
+      auc:""
     }
   },
  
@@ -40,7 +43,11 @@
        } 
        })
        this.user = response.data;   
+      
   },
+  methods:{
+    
+  }
   
 };
 </script>

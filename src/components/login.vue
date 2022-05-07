@@ -1,5 +1,6 @@
 <template lang="">
   <div class="lg:flex">
+     
     <div class="lg:w-1/2 xl:max-w-screen-sm">
       <div
         class="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12"
@@ -35,6 +36,9 @@
             OAS
           </div>
         </div>
+      </div>
+      <div v-if="err" class="ml-20 h-8 w-2/3 bg-red-300 rounded-lg shadow-lg">
+         <p class="text-center">{{err}}</p>
       </div>
       <div
         class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
@@ -265,11 +269,13 @@ export default {
     return {
       email: "",
       password: "",
+      err:"",
     };
   },
   methods: {
     async handlelogin() {
-      const response = await axios.post(
+      try{
+         const response = await axios.post(
         "https://online-auction0.herokuapp.com/v1/authentication/login",
         {
           email: this.email,
@@ -279,6 +285,10 @@ export default {
       
       localStorage.setItem("token", response.data.accessToken);
       this.$router.push("/");
+      }catch(e){
+         this.err="invalid username/password"
+      }
+     
     },
   },
 };
