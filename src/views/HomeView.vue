@@ -14,7 +14,7 @@
               v-model="myaucfilter"
               class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-xl shadow leading-tight focus:outline-none focus:shadow-outline"
             >
-              <option selected disabled>default</option>
+              <option value="0" selected >default</option>
               <option value="1">show my items</option>
               <option value="2">show my bids</option>
             </select>
@@ -98,6 +98,7 @@ export default {
       myaucfilter: null,
       expanditem: "",
       search: null,
+      auc:[]
     };
   },
   async updated() {
