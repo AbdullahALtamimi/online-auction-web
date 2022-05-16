@@ -2,9 +2,7 @@
   <div class="home bg-blue-400">
     <div v-for="item in object" :key="item.name">
       <div class="bg-blue-400 p-10 w-1/3 float-left">
-        <!--Card 1-->
         <div
-          :style="{ background: colorVariant }"
           class="bg-white rounded-md overflow-hidden max-h-96 shadow-xl"
         >
           <img class="w-full h-52" :src="item.photoUrl" />

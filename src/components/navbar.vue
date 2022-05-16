@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- navbar goes here -->
-    <nav class="bg-gray-100">
+    <nav class="bg-gray-100 ">
       <div class="max-w-6xl mx-auto px-4">
         <div class="flex justify-between">
           <div class="flex space-x-4">
@@ -43,7 +43,7 @@
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 >Add item</a
               >
-              <router-link to="/myitem"
+              <router-link :to="{name:'MyItem'}"
                 href="register"
                 class="py-5 px-3 text-gray-700 hover:text-gray-900"
                 >My items</router-link

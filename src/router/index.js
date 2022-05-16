@@ -43,9 +43,19 @@ const routes = [
     component: MyItem
   },
   {
-    path: '/item',
+    path: '/item/:id',
     name: 'card',
     component: card
+  },
+  {
+    path: '/myitems',
+    name: 'myitems',
+    component: HomeView
+  },
+  {
+    path: '/mybids',
+    name: 'mybids',
+    component: HomeView
   },
 ]
 

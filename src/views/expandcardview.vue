@@ -23,7 +23,7 @@
               <div class="flex">
                 <span v-if="highestbid()" class="title-font font-medium text-2xl text-gray-900">${{highestbid()}}</span>
                 
-                <button v-if="user.userName != item.username" @click="bid(item.id)" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">bid</button>
+                <button @click="bid(item.id)" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">bid</button>
                 
               </div>
             </div>
@@ -143,7 +143,7 @@ export default {
     }
   },
   created(){
-    this.id = this.$route.params.data
+    this.id = this.$route.params.id
     axios.get(
         `https://online-auction0.herokuapp.com/v1/auction?Id=${this.id}`,
         {
@@ -155,7 +155,7 @@ export default {
           id:this.id
         },
       ).then(res => {this.item = res.data
-      console.log(this.item.username)});
+      console.log(this.user)});
   }
  
 
