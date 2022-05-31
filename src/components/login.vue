@@ -1,9 +1,9 @@
 <template lang="">
-  <div class="lg:flex">
+  <div class="lg:flex -ml-36">
      
-    <div class="lg:w-1/2 xl:max-w-screen-sm">
+    <div class="bg-gray-700 lg:w-1/2 xl:max-w-screen-sm">
       <div
-        class="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12"
+        class="py-12  bg-gray-700 flex justify-center lg:justify-start lg:px-12"
       >
         <div class="cursor-pointer flex items-center">
           <div>
@@ -44,18 +44,18 @@
         class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
         <h2
-          class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
+          class="text-center text-4xl text-indigo-700 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
         >
           Log in
         </h2>
         <div class="mt-12">
           <form @submit.prevent="handlelogin()">
             <div>
-              <div class="text-sm font-bold text-gray-700 tracking-wide">
+              <div class="text-sm font-bold  tracking-wide text-white">
                 Email Address
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-8 focus:outline-none focus:border-indigo-500"
                 type="email"
                 v-model="email"
                 placeholder="mike@gmail.com"
@@ -63,13 +63,13 @@
             </div>
             <div class="mt-8">
               <div class="flex justify-between items-center">
-                <div class="text-sm font-bold text-gray-700 tracking-wide">
+                <div class="text-sm font-bold text-white tracking-wide">
                   Password
                 </div>
                
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="password"
                 v-model="password"
                 placeholder="Enter your password"
@@ -84,7 +84,7 @@
             </div>
           </form>
           <div
-            class="mt-12 text-sm font-display font-semibold text-gray-700 text-center"
+            class="mt-12 text-sm font-display font-semibold text-white text-center"
           >
             Don't have an account ?
             <router-link
@@ -97,7 +97,7 @@
       </div>
     </div>
     <div
-      class="hidden lg:flex items-center justify-center bg-indigo-100 flex-1 h-screen"
+      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 h-screen"
     >
       <div
         class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
@@ -283,8 +283,9 @@ export default {
         }
       );
       
-      localStorage.setItem("token", response.data.accessToken);
       this.$router.push("/");
+      localStorage.setItem("token", response.data.accessToken);
+      window.location.reload();
       }catch(e){
          this.err="invalid username/password"
       }

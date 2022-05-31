@@ -1,28 +1,28 @@
 <template class="h-full" lang="">
-  <div class="home bg-blue-400">
+  <div class="home bg-gray-900 -ml-36">
     <div v-for="item in object" :key="item.name">
-      <div class="bg-blue-400 p-10 w-1/3 float-left">
+      <div class="bg-gray-900 p-10 w-1/3 float-left">
         <div
-          class="bg-white rounded-md overflow-hidden max-h-96 shadow-xl"
+          class="bg-gray-700 rounded-md overflow-hidden max-h-96 shadow-xl"
         >
           <img class="w-full h-52" :src="item.photoUrl" />
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">
-              <span class="text-blue-500">name:</span> {{ item.name }}
+              <span class="text-blue-500">name:</span> <span class="text-white">{{ item.name }}</span>
             </div>
             <div class="font-bold text-xl mb-2">
-              <span class="text-blue-500">Price:</span>
-              {{ item.startingPrice }} Dinars
+              <span class="text-blue-500">Price:</span> <span class="text-white">${{ item.startingPrice }}</span>
+               
             </div>
             <p class="text-gray-700 text-base">
-              {{ item.description }}
+              <span class="text-white">{{ item.description }}</span> 
             </p>
           </div>
           <div class="ml-1/2 pt-2 pb-2">
             <button
               @click="publish(item.id)"
               id="pub-btn"
-              class="ml-5 delay-400 duration-300 bg-blue-500 hover:bg-blue-800 text-white py-1 px-4 rounded-full"
+              class="ml-5 delay-400 duration-300 bg-gray-900 hover:bg-gray-600 text-white py-1 px-4 rounded-full"
             >
               Publish
             </button>

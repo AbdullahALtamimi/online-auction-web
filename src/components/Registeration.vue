@@ -1,13 +1,13 @@
 <template lang="">
-  <div class="lg:flex">
-    <div class="lg:w-1/2 xl:max-w-screen-sm">
+  <div class="lg:flex -ml-36">
+    <div class="lg:w-1/2 xl:max-w-screen-sm bg-gray-700">
       <div
-        class="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12"
+        class="py-12 bg-gray-700 lg:bg-gray-700 flex justify-center lg:justify-start lg:px-12"
       >
         <div class="cursor-pointer flex items-center">
           <div>
             <svg
-              class="w-10 text-indigo-500"
+              class="w-10  text-indigo-500"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
               version="1.1"
@@ -36,15 +36,15 @@
           </div>
         </div>
       </div>
-        <div v-if="Emailerr || passworderr || usererr || message" class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
+        <div class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
          <p v-if="Emailerr" class="text-center">
-           {{Emailerr}}
+           The Email field is required.
          </p >
          <p class="text-center" v-if="passworderr">
-           {{passworderr}}       
+           The Password field is required.       
          </p>
          <p class="text-center" v-if="usererr">
-           {{usererr}}
+           The UserName field is required.
          </p>
           <p class="text-center" v-if="messagerr">
            {{messagerr}}
@@ -61,22 +61,22 @@
         <div class="mt-12">
           <form @submit.prevent="handlesubmit()">
             <div>
-              <div class="text-sm font-bold text-gray-700 tracking-wide">
+              <div class="text-sm font-bold text-white tracking-wide">
                 Username
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="text"
                 v-model="username"
                 placeholder="username"
               />
             </div>
             <div>
-              <div class="mt-4 text-sm font-bold text-gray-700 tracking-wide">
+              <div class="mt-4 text-sm font-bold text-white tracking-wide">
                 Email Address
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="email"
                 v-model="email"
                 placeholder="mike@gmail.com"
@@ -85,24 +85,24 @@
 
             <div class="mt-4">
               <div class="flex justify-between items-center">
-                <div class="text-sm font-bold text-gray-700 tracking-wide">
+                <div class="text-sm font-bold text-white tracking-wide">
                   Password
                 </div>
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full text-lg py-2 border-b rounded-full pl-5 border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="password"
                 v-model="password"
                 placeholder="Enter your password"
               />
             </div>
             <div>
-              <div class="mt-4 text-sm font-bold text-gray-700 tracking-wide">
+              <div class="mt-4 text-sm font-bold text-white tracking-wide">
                 Phonenumber
               </div>
               <input
                 v-model="phonenumber"
-                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="number"
                 placeholder="PhoneNumber"
               />
@@ -318,10 +318,11 @@ export default {
       );
       this.$router.push("/login");
        }catch(e){
+          this.messagerr = e.response.data.message
+         console.log(e.response.data.message)
           this.passworderr = e.response.data.errors.Password;
           this.Emailerr = e.response.data.errors.Email;
           this.usererr = e.response.data.errors.UserName;
-          this.messagerr = e.response.data.message
        }
     },
   },

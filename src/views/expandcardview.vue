@@ -1,5 +1,5 @@
 <template>
-  <div class="home h-screen">
+  <div class="home -ml-36 h-screen">
      <div class="w-full">
      <div class="w-3/4 float-left">
       <div style='background-color:rgba(0, 0, 0, 0)'>
@@ -96,7 +96,6 @@ import axios from "axios"
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'cardview',
-  props:["user"],
 
     data(){
     return{
@@ -104,6 +103,7 @@ export default {
         item:"",
         bids:"",
         currentid:"",
+        user:"",
     }
   },
   methods:{
@@ -144,6 +144,7 @@ export default {
   },
   created(){
     this.id = this.$route.params.id
+    this.user = this.$route.params.user
     axios.get(
         `https://online-auction0.herokuapp.com/v1/auction?Id=${this.id}`,
         {

@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="bg-blue-400 h-screen w-full">
+  <div class="bg-gray-700 h-screen w-full -ml-36">
     <div class="font-sans antialiased  ">
       <!-- Content -->
       <div class="w-full " style="padding-top: 4rem">
