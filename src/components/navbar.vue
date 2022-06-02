@@ -88,6 +88,9 @@
     </nav>
 
     <!-- content goes here -->
+    <section class="home">
+        
+    </section>
   </div>
 </template>
 

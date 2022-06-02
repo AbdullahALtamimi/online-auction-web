@@ -1,8 +1,8 @@
-<template lang="">
-  <div class="bg-gray-700 h-screen w-full ">
-    <div class="font-sans antialiased bg-gray-700  ">
+<template class="home" lang="">
+  <div class=" h-screen w-full ">
+    <div class="font-sans antialiased h-full bg-gray-700  ">
       <!-- Content -->
-      <div class="w-full -ml-36 " style="padding-top: 4rem">
+      <div class="w-full" style="padding-top: 4rem">
         <div class="container mx-auto py-8">
           <div class="w-5/6 mt-12 lg:w-1/2 mx-auto bg-white rounded shadow-lg">
             <div class="py-4 px-8">
@@ -136,4 +136,8 @@ export default {
   },
 };
 </script>
-<style lang="css"></style>
+<style lang="css">
+  .home{
+    height:80vh;
+  }
+</style>

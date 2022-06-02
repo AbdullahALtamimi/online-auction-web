@@ -1,6 +1,6 @@
 <template lang="">
-  <div class="home bg-gray-700 h-screen lg:flex">
-     
+  <div class="home bg-gray-700  h-full lg:flex">
+    
     <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
         class="py-12  bg-gray-700 flex justify-center lg:justify-start lg:px-12"
@@ -258,6 +258,10 @@
         </svg>
       </div>
     </div>
+ 
+     <div class="text-white">
+        iguerohwjpghojpefohgifjodwkjfegbrlk    
+    </div>
   </div>
 </template>
 <script>
@@ -295,9 +299,6 @@ export default {
 };
 </script>
 <style lang="css">
-.home {
-  height:100vh !important;
-  margin-left: -13.3rem !important;
-}
+
 </style>
 

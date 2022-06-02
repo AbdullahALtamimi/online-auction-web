@@ -1,9 +1,9 @@
 <template>
   <div class="home flex flex-col bg-gray-700">
   <div>
-      <div class="-ml-36">
-      <div class="grid-cols-2 grid ml-60">
-        <div class="mt-7">
+      <div class="">
+      <div class=" ">
+        <div class="mt-7 ml-10">
           <label class="text-xl text-white" for="filter">chose filter: </label>
           <div class="inline-block relative w-52">
             <select
@@ -31,16 +31,6 @@
             </div>
           </div>
         </div>
-        <div class="mt-7">
-          <div class="">
-            <input
-              v-model="search"
-              type="search"
-              class="bg-purple-white shadow rounded-xl border-0 pl-3 p-2"
-              placeholder="Search by name..."
-            />
-          </div>
-        </div>
       </div>
       <div class="" v-for="auction in auc" :key="auction.item">
         <div class="p-10 w-1/3 float-left">
@@ -48,7 +38,26 @@
             @click="expand(auction.id)"
             class="bg-gray-800 rounded-md flex flex-col overflow-hidden height cursor-pointer shadow-xl"
           >
-            <img class="w-full h-48" :src="auction.item.photoUrl" />
+          <div class="relative">
+            <img class="w-full h-48 " :src="auction.item.photoUrl" />
+            <div v-if="user">
+               <button
+                v-if="auction.username == user.userName"
+                @click="deletitem(auction.id)"
+                id="delete-btn"
+                class="ml-1 absolute  bg-red-500 delay-400 bottom-1 duration-300 hover:bg-red-800 text-white py-1 px-3 rounded-full"
+              >
+                Delete
+              </button>
+              <button
+              @click="claimitem(auction.id)"
+              v-if="auction.hasEnded && auction.username != user.userName"
+              class="p-2 absolute text-white bottom-1 bg-blue-600 rounded-full hover:bg-blue-700 border-blue-500"
+            >
+              Claim
+            </button>
+            </div>
+          </div>
             <div class="px-6 py-4">
               <div class="font-bold text-xl mb-2">
                 <span class="text-blue-500">name:</span>
@@ -66,28 +75,15 @@
               </div>
             </div>
             <div class="ml-1/2">
-              <button
-                v-if="auction.username == user.userName"
-                @click="deletitem(auction.id)"
-                id="delete-btn"
-                class="ml-1 bg-red-500 delay-400 mb-5 w-96 duration-300 hover:bg-red-800 text-white py-1 px-3 rounded-full"
-              >
-                Delete
-              </button>
+             
             </div>
-            <button
-              @click="claimitem(auction.id)"
-              v-if="auction.hasEnded"
-              class="p-2 text-white mb-3 bg-blue-600 mx-5 rounded-full hover:bg-blue-700 border-blue-500"
-            >
-              Claim
-            </button>
+            
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="-ml-40">
+  <div class="bg-gray-700">
       <VueTailwindPagination v-if="total > 1" :current="currentPage" :total="total" :per-page="perPage" @page-changed="pagechange($event)"/>
   </div>
   </div>
@@ -110,9 +106,9 @@ export default {
       currentid: "",
       biddingvalue: "",
       date: "",
-      myaucfilter: null,
+      myaucfilter: 0,
       expanditem: "",
-      search: null,
+      search: "",
       auc: [],
       uuser: "",
       page:"",
@@ -121,74 +117,79 @@ export default {
       total: "",
     };
   },
-  async updated() {
-    this.search = this.$route.params.search
+ async updated(){
+     this.search = this.$route.params.search
+     if(this.search){
+        console.log("fhdjksl")
+          const res = await axios.get(
+        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&Search=${this.search}&AuctionFilterType=${this.myaucfilter}`,
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+          params: {
+            AuctionFilterType: this.myaucfilter,
+          },
+        }
+      );
+       this.auc = res.data.data;
+      this.uuser = this.user;
+      this.total = res.data.pageCount
+
+
+      }
+  },
+  // async updated() {
+  //   this.search = this.$route.params.search
     
-    if (this.search){
-      if (this.myaucfilter) {
-      const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-        }
-      );
-      this.auc = res.data.data;
-    } else {
-      const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${21}&Search=${this.search}`,
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-          params: {
-            AuctionFilterType: this.myaucfilter,
-          },
-        }
-      );
+  //   if (this.search){
+  //     if (this.myaucfilter) {
+  //     const res = await axios.get(
+  //       `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,
+  //       {
+  //         headers: {
+  //           Authorization: "bearer " + window.localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     this.auc = res.data.data;
+  //   } else {
+  //     const res = await axios.get(
+  //       `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${21}&Search=${this.search}`,
+  //       {
+  //         headers: {
+  //           Authorization: "bearer " + window.localStorage.getItem("token"),
+  //         },
+  //         params: {
+  //           AuctionFilterType: this.myaucfilter,
+  //         },
+  //       }
+  //     );
 
-      this.auc = res.data.data;
-      this.uuser = this.user;
-      this.total = res.data.pageCount
-      console.log(this.total)
-    }
-    }else{
-        if (this.myaucfilter) {
-      const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,{
-          PageSize:"1"
-        },
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-        }
-      );
+  //     this.auc = res.data.data;
+  //     this.uuser = this.user;
+  //     this.total = res.data.pageCount
+  //     console.log(this.total)
+  //   }
+  //   }else{
+  //       if (this.myaucfilter) {
+  //     const res = await axios.get(
+  //       `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,{
+  //         PageSize:"1"
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: "bearer " + window.localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
 
-      this.auc = res.data.data;
-    } else {
-      const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.$route.params.pagenum}&PageSize=${21}`,
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-          params: {
-            AuctionFilterType: this.myaucfilter,
-          },
-        }
-      );
-
-      this.auc = res.data.data;
-      this.uuser = this.user;
-      this.total = res.data.pageCount
-      console.log(this.total)
-    }
-    }
+  //     this.auc = res.data.data;
+  //   }
+  //   }
     
       
-  },
+  // },
   // computed: {
   //   searchfilter: function () {
   //     if (this.search) {
@@ -200,6 +201,10 @@ export default {
   //     }
   //   },
   // },
+  mounted(){
+    
+     this.paging()
+  },
   methods: {
     deletitem(itemid) {
       axios.delete(
@@ -226,9 +231,30 @@ export default {
       });
     
     },
+    async paging(){
+      
+           const res = await axios.get(
+        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}`,
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+          params: {
+            AuctionFilterType: this.myaucfilter,
+          },
+        }
+      );
+       this.auc = res.data.data;
+      this.uuser = this.user;
+      this.total = res.data.pageCount
+      
+      
+       
+    },
     changeRoute() {
       if (this.myaucfilter == 1) {
         this.$router.push("/myitems");
+        
       } else {
         this.$router.push("/mybids");
       }
@@ -248,13 +274,15 @@ export default {
     },
     pagechange(pagenumber){
       this.currentPage = pagenumber;
-      this.$router.push(`/${this.currentPage}`);
+      this.$router.push(`/page/${this.currentPage}`);
+      this.paging()
     }
   },
 };
 </script>
 <style lang="css">
 .home {
-  height: 100vh !important;
+  margin-left: -7.5rem;
+  height:200vh !important;
 }
 </style>
