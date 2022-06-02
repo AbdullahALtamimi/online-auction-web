@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="lg:flex -ml-36">
+  <div class="lg:flex home ">
     <div class="lg:w-1/2 xl:max-w-screen-sm bg-gray-700">
       <div
         class="py-12 bg-gray-700 lg:bg-gray-700 flex justify-center lg:justify-start lg:px-12"
@@ -119,7 +119,7 @@
       </div>
     </div>
     <div
-      class="hidden lg:flex items-center justify-center bg-indigo-100 flex-1 h-screen"
+      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 h-screen"
     >
       <div
         class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
@@ -328,4 +328,10 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style lang="css">
+.home {
+
+  width:94vw !important;
+  
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="home -ml-36 h-screen">
+  <div class="home bg-gray-700 -ml-40 ">
      <div class="w-full">
      <div class="w-3/4 float-left">
       <div style='background-color:rgba(0, 0, 0, 0)'>
@@ -11,17 +11,17 @@
               <h1 class="text-gray-900 text-3xl title-font font-medium mb-1" style="cursor: auto;">{{item.name}}</h1>
               <div class="flex mb-4">
                 <div>
-                  <p><span class="text-blue-400 text-xl">starting price:</span>$ {{item.currentPrice}}</p>
-                  <p><span class="text-blue-400 text-xl">expiration date:</span> {{item.expireDate}}</p>
+                  <p><span class="text-blue-400 text-xl">starting price:</span> <span class="text-white">${{item.item.startingPrice}}</span></p>
+                  <p><span class="text-blue-400 text-xl">expiration date:</span> <span class="text-white">{{item.expireDate}}</span></p>
                 </div>
               </div>
-              <p class="h-52 leading-relaxed">{{item.item.description}}</p>
+              <p class="h-52 leading-relaxed"><span class="text-white">{{item.item.description}}</span></p>
               <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               
                
               </div>
               <div class="flex">
-                <span v-if="highestbid()" class="title-font font-medium text-2xl text-gray-900">${{highestbid()}}</span>
+                <span v-if="highestbid()" class="title-font font-medium text-2xl text-gray-900"><span class="text-white">${{highestbid()}}</span></span>
                 
                 <button @click="bid(item.id)" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">bid</button>
                 
@@ -31,9 +31,9 @@
         </div>
         </div>
      </div>
-     <div class="w-1/4 h-screen border-2 border-t-0 border-b-0   float-right mt-24">
-     <div v-for="bid in bids " :key="bid.vale">
-         
+     <div class="w-1/4 border-2 border-t-0 border-b-0   float-right mt-24">
+     <div class="" v-for="bid in bids " :key="bid.vale">
+        <p class="text-center bg-white m-2 rounded-full shadow-lg">{{bid.username}}</p> 
      </div>
         
      </div>
@@ -46,7 +46,7 @@
         class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800"
       >
         <div class="flex justify-between items-center w-80">
-          <h4 class="text-lg font-bold">Confirm Delete?</h4>
+          <h4 class="text-lg font-bold">Confirm bid?</h4>
           <svg
             @click="close()"
             class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
@@ -104,6 +104,7 @@ export default {
         bids:"",
         currentid:"",
         user:"",
+        price:""
     }
   },
   methods:{
@@ -133,6 +134,7 @@ export default {
     },
     highestbid(){
       this.bids = this.item.bids
+      console.log(this.item.item.startingPrice)
       if (this.bids.length != 0){
         return this.item.bids[this.bids.length-1].value
       }
@@ -145,6 +147,7 @@ export default {
   created(){
     this.id = this.$route.params.id
     this.user = this.$route.params.user
+    
     axios.get(
         `https://online-auction0.herokuapp.com/v1/auction?Id=${this.id}`,
         {
@@ -156,9 +159,16 @@ export default {
           id:this.id
         },
       ).then(res => {this.item = res.data
-      console.log(this.user)});
+      });
   }
  
 
 }
 </script>
+<style lang="css">
+.home {
+  max-height:125vh !important;
+  width:93vw;
+  
+}
+</style>

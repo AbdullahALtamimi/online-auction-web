@@ -1,5 +1,5 @@
-<template>
-  <div class="body bg-gray-700">
+<template class="bg-gray-700">
+  <div class="body ">
     <nav class="sidebar nav close">
       <header>
         <div class="image-text">
@@ -24,7 +24,7 @@
           </li>
 
           <ul class="menu-links">
-            <router-link to="/1">
+            <router-link to="/page/1">
               <li class="nav-link">
                 <a href="#">
                   <i class="bx bx-home-alt icon"></i>
@@ -41,14 +41,6 @@
                 </a>
               </li></router-link
             >
-
-            <li class="nav-link">
-              <a v-if="user" href="#">
-                <i class="bx bx-bell icon"></i>
-                <span class="text nav-text">Notifications</span>
-              </a>
-            </li>
-
             <router-link to="/MyItem">
               <li v-if="user" class="nav-link">
                 <a href="#">
@@ -57,15 +49,6 @@
                 </a>
               </li></router-link
             >
-
-            <li v-if="user" class="nav-link">
-              <a href="#">
-                <i class="bx bx-heart icon"></i>
-                <span class="text nav-text">Likes</span>
-              </a>
-            </li>
-
-            
           </ul>
         </div>
           
@@ -100,18 +83,6 @@
               </a>
             </li></router-link
           >
-
-          <li class="mode">
-            <div class="sun-moon">
-              <i class="bx bx-moon icon moon"></i>
-              <i class="bx bx-sun icon sun"></i>
-            </div>
-            <span class="mode-text text">Dark mode</span>
-
-            <div class="toggle-switch">
-              <span class="switch"></span>
-            </div>
-          </li>
         </div>
       </div>
     </nav>
@@ -134,7 +105,7 @@ export default {
   methods: {
     handleclick() {
       window.localStorage.removeItem("token");
-      this.$router.push("/");
+      this.$router.push("/page/1");
       window.location.reload();
     },
     submit(){
@@ -142,6 +113,7 @@ export default {
         name: "home",
         params: { search: this.search },
       });
+      
   },
      sidebar(){
          const body = document.querySelector(".body"),

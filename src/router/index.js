@@ -10,7 +10,7 @@ import card from '../views/expandcardview.vue'
 
 const routes = [
   {
-    path: '/:pagenum',
+    path: '/page/:pagenum',
     name: 'home',
     component: HomeView
   },

@@ -1,7 +1,7 @@
 <template lang="">
-  <div class="lg:flex -ml-36">
+  <div class="home bg-gray-700 h-screen lg:flex">
      
-    <div class="bg-gray-700 lg:w-1/2 xl:max-w-screen-sm">
+    <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
         class="py-12  bg-gray-700 flex justify-center lg:justify-start lg:px-12"
       >
@@ -41,7 +41,7 @@
          <p class="text-center">{{err}}</p>
       </div>
       <div
-        class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
+        class="mt-10 bg-gray-700 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
         <h2
           class="text-center text-4xl text-indigo-700 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
@@ -97,7 +97,7 @@
       </div>
     </div>
     <div
-      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 h-screen"
+      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 "
     >
       <div
         class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
@@ -294,4 +294,10 @@ export default {
   },
 };
 </script>
-<style lang=""></style>
+<style lang="css">
+.home {
+  height:100vh !important;
+  margin-left: -13.3rem !important;
+}
+</style>
+
