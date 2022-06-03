@@ -1,42 +1,18 @@
 <template lang="">
-  <div class="lg:flex home ">
-    <div class="lg:w-1/2 xl:max-w-screen-sm bg-gray-700">
+   <div class="home bg-gray-700  h-full lg:flex">
+    
+    <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
-        class="py-12 bg-gray-700 lg:bg-gray-700 flex justify-center lg:justify-start lg:px-12"
+        class="py-12  bg-gray-700 flex justify-center lg:justify-start lg:px-12"
       >
         <div class="cursor-pointer flex items-center">
           <div>
-            <svg
-              class="w-10  text-indigo-500"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              version="1.1"
-              id="Layer_1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 225 225"
-              style="enable-background: new 0 0 225 225"
-              xml:space="preserve"
-            >
-              <g transform="matrix( 1, 0, 0, 1, 0,0) ">
-                <g>
-                  <path
-                    id="Layer0_0_1_STROKES"
-                    class="st0"
-                    d="M173.8,151.5l13.6-13.6 M35.4,89.9l29.1-29 M89.4,34.9v1 M137.4,187.9l-0.6-0.4     M36.6,138.7l0.2-0.2 M56.1,169.1l27.7-27.6 M63.8,111.5l74.3-74.4 M87.1,188.1L187.6,87.6 M110.8,114.5l57.8-57.8"
-                  />
-                </g>
-              </g>
-            </svg>
+           
           </div>
-          <div
-            class="text-4xl mt-10 text-indigo-800 tracking-wide ml-2 font-semibold"
-          >
-            OAS
-          </div>
+         
         </div>
       </div>
-        <div class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
+      <div class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
          <p v-if="Emailerr" class="text-center">
            The Email field is required.
          </p >
@@ -51,75 +27,82 @@
          </p>
       </div>
       <div
-        class="px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
+        class="mt-10 bg-gray-700 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
         <h2
-          class="-mt-8 text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
+          class="text-center text-4xl text-indigo-700 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
         >
-          Sign Up
+          Log in
         </h2>
         <div class="mt-12">
           <form @submit.prevent="handlesubmit()">
             <div>
-              <div class="text-sm font-bold text-white tracking-wide">
-                Username
+              <div class="text-sm font-bold  tracking-wide text-white">
+                UserName
               </div>
               <input
-                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="text"
                 v-model="username"
-                placeholder="username"
+                placeholder="Enter your Username"
               />
             </div>
-            <div>
-              <div class="mt-4 text-sm font-bold text-white tracking-wide">
-                Email Address
+            <div class="mt-3">
+              <div class="flex justify-between items-center">
+                <div class="text-sm font-bold text-white tracking-wide">
+                  Email
+                </div>
+               
               </div>
-              <input
-                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+             <input
+                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-8 focus:outline-none focus:border-indigo-500"
                 type="email"
                 v-model="email"
-                placeholder="mike@gmail.com"
+                placeholder="abdo@gmail.com"
               />
             </div>
-
-            <div class="mt-4">
+            <div class="mt-3">
               <div class="flex justify-between items-center">
                 <div class="text-sm font-bold text-white tracking-wide">
                   Password
                 </div>
+               
               </div>
               <input
-                class="w-full text-lg py-2 border-b rounded-full pl-5 border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="password"
                 v-model="password"
                 placeholder="Enter your password"
               />
             </div>
-            <div>
-              <div class="mt-4 text-sm font-bold text-white tracking-wide">
-                Phonenumber
+            <div class="mt-3">
+              <div class="flex justify-between items-center">
+                <div class="text-sm font-bold text-white tracking-wide">
+                  Phone Number
+                </div>
+               
               </div>
               <input
-                v-model="phonenumber"
-                class="w-full rounded-full pl-5 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="number"
-                placeholder="PhoneNumber"
+                v-model="phonenumber"
+                placeholder="Enter your phone Number"
               />
             </div>
-            <div class="mt-10">
+            <div class="mt-5">
               <button
                 class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg"
               >
-                Sign Up
+                Register
               </button>
             </div>
           </form>
+         
         </div>
       </div>
     </div>
     <div
-      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1"
+      class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 "
     >
       <div
         class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
@@ -292,7 +275,7 @@ export default {
       username: "",
       password: "",
       email: "",
-      phonenumber: null,
+      phonenumber: "",
       Emailerr:"",
       passworderr:"",
       usererr:"",
@@ -305,10 +288,10 @@ export default {
            await axios.post(
         "https://online-auction0.herokuapp.com/v1/authentication/user",
         {
+          phoneNumber: this.Phonenumber,
           userName: this.username,
           email: this.email,
           password: this.password,
-          phoneNumber: "45367890"
         },
         {
           headers: {

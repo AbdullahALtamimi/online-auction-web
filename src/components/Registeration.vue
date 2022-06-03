@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="lg:flex home ">
+  <div class="lg:flex home h-screen bg-gray-700 ">
     <div class="lg:w-1/2 xl:max-w-screen-sm bg-gray-700">
       <div
         class="py-12 bg-gray-700 lg:bg-gray-700 flex justify-center lg:justify-start lg:px-12"
@@ -51,7 +51,7 @@
          </p>
       </div>
       <div
-        class="px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl"
+        class="px-12 sm:px-24 md:px-48 lg:px-12 bg-gray-700 lg:mt-16 xl:px-24 xl:max-w-2xl"
       >
         <h2
           class="-mt-8 text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold"
@@ -301,6 +301,7 @@ export default {
   },
   methods: {
     async handlesubmit() {
+      messagerr = passworderr = Emailerr = messagerr = ""
        try{
            await axios.post(
         "https://online-auction0.herokuapp.com/v1/authentication/user",

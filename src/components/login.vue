@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="home bg-gray-700  h-full lg:flex">
+  <div class=" bg-gray-700  h-full lg:flex">
     
     <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
@@ -103,7 +103,7 @@
         class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
       >
         <svg
-          class="w-5/6 mx-auto"
+          class="w-5/6 mx-auto height"
           xmlns="http://www.w3.org/2000/svg"
           id="f080dbb7-9b2b-439b-a118-60b91c514f72"
           data-name="Layer 1"
@@ -299,6 +299,8 @@ export default {
 };
 </script>
 <style lang="css">
-
+ .height{
+   top:200px !important;
+ }
 </style>
 

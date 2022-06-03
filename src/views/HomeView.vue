@@ -1,5 +1,5 @@
 <template>
-  <div class="home flex flex-col bg-gray-700">
+  <div class="home realw flex flex-col ">
   <div>
       <div class="">
       <div class=" ">
@@ -16,6 +16,37 @@
               <option value="1">show my items</option>
               <option value="2">show my bids</option>
             </select>
+            <div
+            v-if="errmessage"
+      class="bg-black bg-opacity-50 left-1/3 top-1/2 -translate-x-1/2 fixed -translate-y-1/2 index-100 hello"
+      id="overlay"
+    >
+      <div
+        class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800"
+      >
+        <div class="flex justify-between items-center w-80">
+          <h4 class="text-lg font-bold">Error</h4>
+          <svg
+            @click="close()"
+            class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
+            id="close-modal"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+       
+        <div v-if="errmessage" class=" bg-red-700 mt-4 rounded-md">
+           <p class="text-white text-center mt-2">{{errmessage}}</p>
+        </div>
+        
+      </div>
+    </div>
             <div
               class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
             >
@@ -35,11 +66,11 @@
       <div class="" v-for="auction in auc" :key="auction.item">
         <div class="p-10 w-1/3 float-left">
           <div
-            @click="expand(auction.id)"
+            
             class="bg-gray-800 rounded-md flex flex-col overflow-hidden height cursor-pointer shadow-xl"
           >
           <div class="relative">
-            <img class="w-full h-48 " :src="auction.item.photoUrl" />
+            <img class="w-full h-48 object-cover " :src="auction.item.photoUrl" />
             <div v-if="user">
                <button
                 v-if="auction.username == user.userName"
@@ -58,7 +89,7 @@
             </button>
             </div>
           </div>
-            <div class="px-6 py-4">
+            <div @click="expand(auction.id)" class="px-6 py-4">
               <div class="font-bold text-xl mb-2">
                 <span class="text-blue-500">name:</span>
                 <span class="text-white">{{ auction.item.name }}</span>
@@ -86,6 +117,7 @@
   <div class="bg-gray-700">
       <VueTailwindPagination v-if="total > 1" :current="currentPage" :total="total" :per-page="perPage" @page-changed="pagechange($event)"/>
   </div>
+       
   </div>
 </template>
 
@@ -115,12 +147,13 @@ export default {
       currentPage: this.$route.params.pagenum,
       perPage: 1,
       total: "",
+      errmessage:"",
     };
   },
  async updated(){
      this.search = this.$route.params.search
      if(this.search){
-        console.log("fhdjksl")
+    
           const res = await axios.get(
         `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&Search=${this.search}&AuctionFilterType=${this.myaucfilter}`,
         {
@@ -137,6 +170,22 @@ export default {
       this.total = res.data.pageCount
 
 
+      }
+      if(this.myaucfilter){
+         const res = await axios.get(
+        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&AuctionFilterType=${this.myaucfilter}`,
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+          params: {
+            AuctionFilterType: this.myaucfilter,
+          },
+        }
+      );
+       this.auc = res.data.data;
+      this.uuser = this.user;
+      this.total = res.data.pageCount
       }
   },
   // async updated() {
@@ -206,8 +255,11 @@ export default {
      this.paging()
   },
   methods: {
+    
     deletitem(itemid) {
-      axios.delete(
+      
+     
+         axios.delete(
         `https://online-auction0.herokuapp.com/v1/auction?auctionId=${itemid}`,
         {
           headers: {
@@ -218,7 +270,15 @@ export default {
         {
           id: itemid,
         }
-      );
+      ).catch(e => this.errmessage = e.response.data.message)
+     if(this.errmessage){
+       const popup = document.querySelector(".hello");
+       popup.style.display = "block";
+     }
+    },
+     close() {
+      const popup = document.querySelector(".hello");
+      popup.style.display = "none";
     },
     converttime(date) {
       var dt = new Date(date);
@@ -255,8 +315,10 @@ export default {
       if (this.myaucfilter == 1) {
         this.$router.push("/myitems");
         
-      } else {
+      } else if (this.myaucfilter == 2) {
         this.$router.push("/mybids");
+      }else{
+        this.$router.push("/page/1");
       }
     },
     claimitem(id) {
@@ -282,7 +344,10 @@ export default {
 </script>
 <style lang="css">
 .home {
-  margin-left: -7.5rem;
-  height:200vh !important;
+  margin-left: -6rem;
+  width: calc(100% - 8px);
+  height:auto !important;
+
 }
+
 </style>

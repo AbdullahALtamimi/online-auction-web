@@ -18,6 +18,7 @@
                     v-model="pname"
                     id="first_name"
                     type="text"
+                    required
                   />
                 </div>
                 <div class="w-1/2 ml-1">
@@ -31,6 +32,7 @@
                     v-model="start_price"
                     id="last_name"
                     type="number"
+                    required
                   />
                 </div>
               </div>
@@ -80,6 +82,37 @@
         </div>
       </div>
     </div>
+    <div
+            v-if="messageerr"
+      class="bg-black bg-opacity-50 left-1/3 top-1/2 -translate-x-1/2 fixed -translate-y-1/2 index-100 hello"
+      id="overlay"
+    >
+      <div
+        class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800"
+      >
+        <div class="flex justify-between items-center w-80">
+          <h4 class="text-lg font-bold">Error</h4>
+          <svg
+            @click="close()"
+            class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
+            id="close-modal"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div>
+       
+        <div class=" bg-red-700 mt-4 rounded-md">
+           <p class="text-white text-center mt-2">{{errmessage}}{{messageerr}}</p>
+        </div>
+        
+      </div>
+    </div>
   </div>
   
 </template>
@@ -96,6 +129,8 @@ export default {
       start_price: "",
       selectedfile: null,
       description:"",
+      messageerr:"",
+      errmessage:"",
     };
   },
   methods: {
@@ -113,7 +148,10 @@ export default {
             Authorization: "bearer " + window.localStorage.getItem("token"),
           },
         }
-      );
+      ).catch(e => {this.messageerr = e.response.data.message,
+      console.log(this.messageerr),
+      // this.errmessage = e.response.data.errors.Name,
+      console.log(this.errmessage) })
       const id = result.data.id;
       
       const fd = new FormData();
@@ -138,6 +176,6 @@ export default {
 </script>
 <style lang="css">
   .home{
-    height:80vh;
+    
   }
 </style>

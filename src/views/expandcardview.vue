@@ -1,11 +1,11 @@
 <template>
-  <div class="home bg-gray-700 -ml-40 ">
+  <div class="homea bg-gray-700 -ml-40 ">
      <div class="w-full">
      <div class="w-3/4 float-left">
       <div style='background-color:rgba(0, 0, 0, 0)'>
         <div class="container px-5 py-24 mx-auto" style="cursor: auto;">
           <div class="lg:w-4/5 mx-auto flex flex-wrap">
-            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" :src="item.item.photoUrl" style="cursor: auto;">
+            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-54 object-cover object-center rounded" :src="item.item.photoUrl" style="cursor: auto;">
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0" style="cursor: auto;">
               <h2 class="text-sm title-font text-gray-500 tracking-widest" style="cursor: auto;">ON SALE</h2>
               <h1 class="text-gray-900 text-3xl title-font font-medium mb-1" style="cursor: auto;">{{item.name}}</h1>
@@ -33,7 +33,10 @@
      </div>
      <div class="w-1/4 border-2 border-t-0 border-b-0   float-right mt-24">
      <div class="" v-for="bid in bids " :key="bid.vale">
-        <p class="text-center bg-white m-2 rounded-full shadow-lg">{{bid.username}}</p> 
+        <div class=" bg-white m-2 rounded-md shadow-lg">
+          <div class=" ml-4"><span class="text-blue-700 text-lg">bidder name:</span>{{bid.username}}</div>
+          <p class="ml-4"><span class="text-blue-700 text-lg">bidder value:</span>${{bid.value}}</p>
+        </div> 
      </div>
         
      </div>
@@ -70,6 +73,9 @@
             id="bid"
           />
         </div>
+        <div v-if="errmessage" class="h-10 bg-red-700 mt-4 rounded-md">
+           <p class="text-white text-center mt-2">{{errmessage}}</p>
+        </div>
         <div class="mt-3 flex justify-end space-x-3">
           <button
             class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900"
@@ -104,7 +110,9 @@ export default {
         bids:"",
         currentid:"",
         user:"",
-        price:""
+        price:"",
+        errmessage:"",
+        biddingvalue:"",
     }
   },
   methods:{
@@ -118,8 +126,9 @@ export default {
       popup.style.display = "none";
     },
     async bidding() {
-      
-      await axios.post(
+      this.errmessage= "";
+      try{
+         await axios.post(
         "https://online-auction0.herokuapp.com/v1/bid",
         {
           value:this.biddingvalue ,
@@ -131,6 +140,13 @@ export default {
           },
         }
       );
+      this.close()
+      }catch(e){
+        this.errmessage = e.response.data.message
+      }
+      if (this.biddingvalue ==""){
+        this.errmessage = "make sure to place your bid"
+      }
     },
     highestbid(){
       this.bids = this.item.bids
@@ -147,8 +163,8 @@ export default {
   created(){
     this.id = this.$route.params.id
     this.user = this.$route.params.user
-    
-    axios.get(
+    try{
+        axios.get(
         `https://online-auction0.herokuapp.com/v1/auction?Id=${this.id}`,
         {
           headers: {
@@ -160,15 +176,28 @@ export default {
         },
       ).then(res => {this.item = res.data
       });
+    }catch(e){
+        console.log(e.response.data)
+    }
+   
   }
  
 
 }
 </script>
 <style lang="css">
-.home {
-  max-height:125vh !important;
-  width:93vw;
+.homea {
+ 
   
+  position: absolute;
+  top: 0;
+  top: 0;
+  left: 300px;
+  height: 100%;
+  width: calc(100% - 250px);
+  background-color: var(--body-color);
+  transition: var(--tran-05);
+
+
 }
 </style>

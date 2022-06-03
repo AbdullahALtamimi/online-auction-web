@@ -5,6 +5,7 @@ import login from '../views/loginv.vue'
 import additem from '../views/additemview.vue'
 import MyItem from '../views/MyItemView.vue'
 import card from '../views/expandcardview.vue'
+// import search from '../views/search.vue'
 
 
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: registeration
+  },
+  {
+    path: '/page/:searchkey',
+    name: 'search',
+    component: HomeView
   },
   {
     path: '/login',

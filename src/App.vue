@@ -1,5 +1,6 @@
 <template>
- <div class="body ">
+<div class="realw">
+  <div class="body">
     <nav class="sidebar nav close">
       <header>
         <div class="image-text">
@@ -13,14 +14,14 @@
           </div>
         </div>
 
-        <i class="bx bx-chevron-right toggle"></i>
+        <i class="bx bx-chevron-right toggle shadow-lg"></i>
       </header>
 
       <div class="menu-bar">
         <div class="menu">
           <li class="search-box">
             <i class="bx bx-search icon"></i>
-            <input @keyup.enter="submit" v-model="search" type="text" placeholder="Search..." />
+            <input @keyup.enter="submit()" v-model="search" type="text" placeholder="Search..." />
           </li>
 
           <ul class="menu-links">
@@ -88,7 +89,7 @@
     </nav>
 
     <!-- content goes here -->
-    <section class="home">
+    <section class="home ">
         <transition
   mode="out-in"
   enter-active-class="animate__animated animate__fadeIn"
@@ -98,6 +99,8 @@
   </transition>
     </section>
   </div>
+</div>
+
   
 </template>
 
@@ -141,16 +144,15 @@
   },
   methods:{
      handleclick() {
-      window.localStorage.removeItem("token");
       this.$router.push("/page/1");
+      window.localStorage.removeItem("token");
       window.location.reload();
     },
     submit(){
     this.$router.push({
         name: "home",
         params: { search: this.search },
-      });
-      
+      });    
   },
      sidebar(){
       const body = document.querySelector(".body"),
@@ -174,11 +176,12 @@
 };
 </script>
 <style lang="scss">
+
 :root {
   /* ===== Colors ===== */
-  --body-color: #e4e9f7;
+  --body-color: #374151;
   --sidebar-color: #fff;
-  --primary-color: #695cfe;
+  --primary-color: #374151;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
   --text-color: #707070;
@@ -453,25 +456,23 @@ header .image-text .profession {
   position: absolute;
   top: 0;
   top: 0;
-  left: 250px;
-  height: 100vh;
+  left: 200px;
+  height: 100%;
   width: calc(100% - 250px);
   background-color: var(--body-color);
   transition: var(--tran-05);
 }
-.home .text {
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--text-color);
-  padding: 12px 60px;
-}
+
 
 .sidebar.close ~ .home {
   left: 78px;
   height: 100vh;
-  width: calc(100% - 78px);
+  max-width: calc(100% - 78px);
 }
 .body.dark .home .text {
   color: var(--text-color);
+}
+.home{
+  height:100%;
 }
 </style>

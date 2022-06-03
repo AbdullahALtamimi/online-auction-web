@@ -1,11 +1,11 @@
 <template class="" lang="">
-  <div class="home bg-gray-700 h-full -ml-30">
+  <div class="homee bg-gray-700  -ml-30">
     <div v-for="item in object" :key="item.name">
       <div class=" p-10 w-1/3 float-left">
         <div
           class="bg-gray-900 rounded-md overflow-hidden max-h-96 shadow-xl"
         >
-          <img class="w-full h-52" :src="item.photoUrl" />
+          <img class="w-full h-52 object-cover" :src="item.photoUrl" />
           <div class="px-6 py-4">
             <div class="font-bold text-xl mb-2">
               <span class="text-blue-500">name:</span> <span class="text-white">{{ item.name }}</span>
@@ -154,6 +154,14 @@ export default {
 };
 </script>
 <style lang="css">
- 
+  .homee{
+    margin-left: 6.5rem;
+  width: calc(100% - 8px);
+  height:auto !important;
+    position: absolute;
+  top: 0;
+  top: 0;
+  
+  }
 </style>
 
