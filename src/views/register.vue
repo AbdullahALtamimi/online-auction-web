@@ -1,5 +1,5 @@
 <template lang="">
-   <div class="home bg-gray-700  h-full lg:flex">
+   <div class=" bg-gray-700 ml-32  h-full lg:flex">
     
     <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
@@ -12,7 +12,7 @@
          
         </div>
       </div>
-      <div class="ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
+      <div class=" ml-10 md:ml-20  w-2/3 bg-red-300 rounded-lg shadow-lg">
          <p v-if="Emailerr" class="text-center">
            The Email field is required.
          </p >
@@ -41,7 +41,7 @@
                 UserName
               </div>
               <input
-                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="text"
                 v-model="username"
                 placeholder="Enter your Username"
@@ -55,7 +55,7 @@
                
               </div>
              <input
-                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-8 focus:outline-none focus:border-indigo-500"
+                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-1 md:pl-8 focus:outline-none focus:border-indigo-500"
                 type="email"
                 v-model="email"
                 placeholder="abdo@gmail.com"
@@ -69,7 +69,7 @@
                
               </div>
               <input
-                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="password"
                 v-model="password"
                 placeholder="Enter your password"
@@ -83,13 +83,13 @@
                
               </div>
               <input
-                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="number"
                 v-model="phonenumber"
-                placeholder="Enter your phone Number"
+                placeholder="Enter your Number"
               />
             </div>
-            <div class="mt-5">
+            <div class="mt-7">
               <button
                 class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg"
               >
@@ -105,7 +105,7 @@
       class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 "
     >
       <div
-        class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
+        class="max-w-xs mt-60 transform duration-200 hover:scale-110 cursor-pointer"
       >
         <svg
           class="w-5/6 mx-auto"

@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="" v-for="auction in auc" :key="auction.item">
-        <div class="p-10 w-1/3 float-left">
+        <div class="p-10 w-1/1 md:w-1/3 float-left">
           <div
             
             class="bg-gray-800 rounded-md flex flex-col overflow-hidden height cursor-pointer shadow-xl"
@@ -150,44 +150,28 @@ export default {
       errmessage:"",
     };
   },
- async updated(){
-     this.search = this.$route.params.search
-     if(this.search){
-    
-          const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&Search=${this.search}&AuctionFilterType=${this.myaucfilter}`,
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-          params: {
-            AuctionFilterType: this.myaucfilter,
-          },
-        }
-      );
-       this.auc = res.data.data;
-      this.uuser = this.user;
-      this.total = res.data.pageCount
 
+//  async updated(){
+//      this.search = this.$route.params.search
+     
+//       if(this.myaucfilter){
+//          const res = await axios.get(
+//         `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&AuctionFilterType=${this.myaucfilter}`,
+//         {
+//           headers: {
+//             Authorization: "bearer " + window.localStorage.getItem("token"),
+//           },
+//           params: {
+//             AuctionFilterType: this.myaucfilter,
+//           },
+//         }
+//       );
+//        this.auc = res.data.data;
+//       this.uuser = this.user;
+//       this.total = res.data.pageCount
+//       }
+//   },
 
-      }
-      if(this.myaucfilter){
-         const res = await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?PageNumber=${this.currentPage}&PageSize=${12}&AuctionFilterType=${this.myaucfilter}`,
-        {
-          headers: {
-            Authorization: "bearer " + window.localStorage.getItem("token"),
-          },
-          params: {
-            AuctionFilterType: this.myaucfilter,
-          },
-        }
-      );
-       this.auc = res.data.data;
-      this.uuser = this.user;
-      this.total = res.data.pageCount
-      }
-  },
   // async updated() {
   //   this.search = this.$route.params.search
     
@@ -221,21 +205,21 @@ export default {
   //     console.log(this.total)
   //   }
   //   }else{
-  //       if (this.myaucfilter) {
-  //     const res = await axios.get(
-  //       `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,{
-  //         PageSize:"1"
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization: "bearer " + window.localStorage.getItem("token"),
-  //         },
-  //       }
-  //     );
+    //     if (this.myaucfilter) {
+    //   const res = await axios.get(
+    //     `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,{
+    //       PageSize:"1"
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: "bearer " + window.localStorage.getItem("token"),
+    //       },
+    //     }
+    //   );
 
-  //     this.auc = res.data.data;
-  //   }
-  //   }
+    //   this.auc = res.data.data;
+    // }
+    // }
     
       
   // },
@@ -255,7 +239,19 @@ export default {
      this.paging()
   },
   methods: {
-    
+    filtering(){
+      const res = axios.get(
+        `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.myaucfilter}`,{
+          PageSize:"1"
+        },
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      );
+      this.auc = res.data.data;
+    },
     deletitem(itemid) {
       
      
@@ -312,14 +308,10 @@ export default {
        
     },
     changeRoute() {
-      if (this.myaucfilter == 1) {
-        this.$router.push("/myitems");
-        
-      } else if (this.myaucfilter == 2) {
-        this.$router.push("/mybids");
-      }else{
-        this.$router.push("/page/1");
-      }
+       this.$router.push({
+        name: "filter",
+        params: { filter:this.myaucfilter },
+      });    
     },
     claimitem(id) {
       axios.patch(

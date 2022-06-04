@@ -5,7 +5,8 @@ import login from '../views/loginv.vue'
 import additem from '../views/additemview.vue'
 import MyItem from '../views/MyItemView.vue'
 import card from '../views/expandcardview.vue'
-// import search from '../views/search.vue'
+import search from '../views/search.vue'
+import filter from '../views/filter.vue'
 
 
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/page/:pagenum',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/filter/:filter',
+    name: 'filter',
+    component: filter
   },
   {
     path: '/about',
@@ -29,9 +35,9 @@ const routes = [
     component: registeration
   },
   {
-    path: '/page/:searchkey',
+    path: '/search/:searchkey',
     name: 'search',
-    component: HomeView
+    component: search
   },
   {
     path: '/login',

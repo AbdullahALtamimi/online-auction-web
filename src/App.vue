@@ -137,7 +137,9 @@
        })
        this.user = response.data;    
     // eslint-disable-next-line no-empty
-  
+        if(this.$route.fullPath == "/"){
+          this.$router.push("/page/1")
+        }
   },
    mounted(){
      this.sidebar()
@@ -149,10 +151,12 @@
       window.location.reload();
     },
     submit(){
-    this.$router.push({
-        name: "home",
-        params: { search: this.search },
+      
+    this.$router.replace({
+        name: "search",
+        params: { searchkey: this.search },
       });    
+      
   },
      sidebar(){
       const body = document.querySelector(".body"),
@@ -385,7 +389,7 @@ header .image-text .profession {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: scroll;
+  
 }
 .menu-bar::-webkit-scrollbar {
   display: none;

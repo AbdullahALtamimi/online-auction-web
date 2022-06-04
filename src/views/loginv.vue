@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="home bg-gray-700  h-full lg:flex">
+  <div class="bg-gray-700 ml-32  h-full lg:flex">
     
     <div class="bg-gray-700 h-96 lg:w-1/2 xl:max-w-screen-sm">
       <div
@@ -30,11 +30,6 @@
               </g>
             </svg>
           </div>
-          <div
-            class="text-4xl mt-10 text-indigo-800 tracking-wide ml-2 font-semibold"
-          >
-            OAS
-          </div>
         </div>
       </div>
       <div v-if="err" class="ml-20 h-8 w-2/3 bg-red-300 rounded-lg shadow-lg">
@@ -55,13 +50,13 @@
                 Email Address
               </div>
               <input
-                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-8 focus:outline-none focus:border-indigo-500"
+                class="w-full text-lg py-2 border-b border-gray-300 rounded-full pl-1 md:pl-8 focus:outline-none focus:border-indigo-500"
                 type="email"
                 v-model="email"
-                placeholder="mike@gmail.com"
+                placeholder="abdo11@gmail.com"
               />
             </div>
-            <div class="mt-8">
+            <div class="mt-3">
               <div class="flex justify-between items-center">
                 <div class="text-sm font-bold text-white tracking-wide">
                   Password
@@ -69,13 +64,13 @@
                
               </div>
               <input
-                class="w-full rounded-full pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
                 type="password"
                 v-model="password"
                 placeholder="Enter your password"
               />
             </div>
-            <div class="mt-10">
+            <div class="mt-7">
               <button
                 class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg"
               >
@@ -100,7 +95,7 @@
       class="hidden lg:flex items-center justify-center bg-gray-700 flex-1 "
     >
       <div
-        class="max-w-xs transform duration-200 hover:scale-110 cursor-pointer"
+        class="max-w-xs mt-52 transform duration-200 hover:scale-110 cursor-pointer"
       >
         <svg
           class="w-5/6 mx-auto"

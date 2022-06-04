@@ -1,9 +1,9 @@
 <template class="" lang="">
   <div class="homee bg-gray-700  -ml-30">
     <div v-for="item in object" :key="item.name">
-      <div class=" p-10 w-1/3 float-left">
+      <div class=" p-10 w-1/1 md:w-1/3  float-left">
         <div
-          class="bg-gray-900 rounded-md overflow-hidden max-h-96 shadow-xl"
+          class="bg-gray-900 rounded-md overflow-hidden  shadow-xl"
         >
           <img class="w-full h-52 object-cover" :src="item.photoUrl" />
           <div class="px-6 py-4">
@@ -14,13 +14,11 @@
               <span class="text-blue-500">Price:</span> <span class="text-white">${{ item.startingPrice }}</span>
                
             </div>
-            <p class="text-gray-700 text-base">
-              <span class="text-white">{{ item.description }}</span> 
-            </p>
+            
           </div>
           <div class="ml-1/2 pt-2 pb-2">
             <button
-              @click="publish(item.id)"
+              @click="publish(item.id,item.name)"
               id="pub-btn"
               class="ml-5 delay-400 duration-300 bg-gray-700 hover:bg-gray-600 text-white py-1 px-4 rounded-full"
             >
@@ -45,7 +43,7 @@
         class="bg-gray-200 max-w-sm py-2 px-3 rounded shadow-xl text-gray-800"
       >
         <div class="flex justify-between items-center w-80">
-          <h4 class="text-lg font-bold">Confirm Delete?</h4>
+          <h4 class="text-lg font-bold">Confirm Publish for item {{name}}?</h4>
           <svg
             @click="close()"
             class="h-6 w-6 cursor-pointer p-1 hover:bg-gray-300 rounded-full"
@@ -98,6 +96,7 @@ export default {
       object: "",
       date: "",
       currentselecteditem: "",
+      name:"",
     };
   },
 
@@ -111,10 +110,11 @@ export default {
       .then((res) => (this.object = res.data));
   },
   methods: {
-    publish(itemid) {
+    publish(itemid,name) {
       const popup = document.querySelector(".hello");
       popup.style.display = "block";
       this.currentselecteditem = itemid;
+      this.name = name;
     },
     close() {
       const popup = document.querySelector(".hello");

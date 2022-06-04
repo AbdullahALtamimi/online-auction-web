@@ -1,6 +1,20 @@
 <template lang="">
     <div class="home">
-    
+     <div class="mt-7 ml-10">
+          <label class="text-xl text-white" for="filter">chose filter: </label>
+          <div class="inline-block relative w-52">
+            <select
+              id="filter"
+              v-on:change="changeRoute()"
+              v-model="myaucfilter"
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded-xl shadow leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="0" selected>default</option>
+              <option value="1">show my items</option>
+              <option value="2">show my bids</option>
+            </select>
+            </div>
+            </div>
     <div v-if="size == 0" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl -ml-24 mt-80 text-white">nothing found</div>
          <div class="" v-for="auction in auc" :key="auction.item">
         <div class="p-10 w-1/1 md:w-1/3  float-left">
@@ -71,17 +85,16 @@ export default {
             filter:"",
         }
     },
-     watch: {     
+  watch: {     
          $route(){
            window.location.reload();
          }
   },
-
    async created(){
      this.search = this.$route.params.searchkey
      this.filter = this.$route.params.filter
        const res =  await axios.get(
-        `https://online-auction0.herokuapp.com/v1/auctions?Search=${this.search}`,
+        `https://online-auction0.herokuapp.com/v1/auctions?AuctionFilterType=${this.filter}`,
         {
           headers: {
             Authorization: "bearer " + window.localStorage.getItem("token"),
@@ -129,14 +142,16 @@ export default {
     
     },
     changeRoute() {
-      if(this.search == 0 ){
-        this.$router.push("/page/1")
-      }else{
+       if(this.filter == 0 ){
+            this.$router.push("/page/1")
+       }
+       else{
         this.$router.push({
-        name: "search",
-        params: { searchkey: this.myaucfilter },
+        name: "filter",
+        params: {filter:this.myaucfilter },
       }); 
-      }
+       }
+           
           
     },
     }
