@@ -22,6 +22,9 @@
          <p class="text-center" v-if="usererr">
            The UserName field is required.
          </p>
+         <p class="text-center" v-if="passworderecheck">
+           {{passworderecheck}}
+         </p>
           <p class="text-center" v-if="messagerr">
            {{messagerr}}
          </p>
@@ -74,6 +77,20 @@
                 v-model="password"
                 placeholder="Enter your password"
               />
+              <div class="mt-3">
+              <div class="flex justify-between items-center">
+                <div class="text-sm font-bold text-white tracking-wide">
+                  check Password
+                </div>
+               
+              </div>
+              <input
+                class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
+                type="password"
+                v-model="checkpass"
+                placeholder="check password"
+              />
+            </div>
             </div>
             <div class="mt-3">
               <div class="flex justify-between items-center">
@@ -84,8 +101,8 @@
               </div>
               <input
                 class="w-full rounded-full pl-1 md:pl-8 text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-                type="number"
-                v-model="phonenumber"
+                type="text"
+                v-model="phonenumberr"
                 placeholder="Enter your Number"
               />
             </div>
@@ -114,7 +131,7 @@
           data-name="Layer 1"
           viewBox="0 0 528.71721 699.76785"
         >
-          <title>Login</title>
+          <title>REGISTER</title>
           <rect y="17.06342" width="444" height="657" fill="#535461" />
           <polygon
             points="323 691.063 0 674.063 0 17.063 323 0.063 323 691.063"
@@ -275,20 +292,29 @@ export default {
       username: "",
       password: "",
       email: "",
-      phonenumber: "",
+      phonenumberr: "",
       Emailerr:"",
       passworderr:"",
+      passworderecheck:"",
       usererr:"",
-      messagerr:""
+      messagerr:"",
+      checkpass:""
     };
   },
   methods: {
     async handlesubmit() {
-       try{
+          this.messagerr = "";
+          this.passworderr = "";
+          this.Emailerr = "";
+          this.usererr = "";
+      if(this.password != this.checkpass){
+        this.passworderecheck = "your password does'nt match";
+      }else{
+         try{
            await axios.post(
         "https://online-auction0.herokuapp.com/v1/authentication/user",
         {
-          phoneNumber: this.Phonenumber,
+          phoneNumber: this.Phonenumberr,
           userName: this.username,
           email: this.email,
           password: this.password,
@@ -302,11 +328,12 @@ export default {
       this.$router.push("/login");
        }catch(e){
           this.messagerr = e.response.data.message
-         console.log(e.response.data.message)
           this.passworderr = e.response.data.errors.Password;
           this.Emailerr = e.response.data.errors.Email;
           this.usererr = e.response.data.errors.UserName;
        }
+      }
+      
     },
   },
 };

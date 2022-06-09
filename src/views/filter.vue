@@ -50,7 +50,7 @@
               <div class="font-bold text-xl mb-2">
                 <span class="text-blue-500">Price:</span>
                 <span class="text-white">
-                  ${{ auction.item.startingPrice }}
+                  ${{ auction.currentPrice }}
                 </span>
               </div>
               <div class="font-bold text-xl mb-2">
@@ -87,10 +87,19 @@ export default {
     },
   watch: {     
          $route(){
-           window.location.reload();
+           
+            if(this.$route.fullPath == "/filter/0"){
+          this.$router.push("/page/1")
+        }
+        if(this.$route.fullPath == "/filter/1" || this.$route.fullPath == "/filter/2" ){
+        window.location.reload();
+        }
+       
          }
+
   },
    async created(){
+     console.log(this.$route.fullPath)
      this.search = this.$route.params.searchkey
      this.filter = this.$route.params.filter
        const res =  await axios.get(
@@ -120,12 +129,15 @@ export default {
         {
           id: itemid,
         }
-      ).catch(e => this.errmessage = e.response.data.message)
+      ).then(this.timeFunction()).catch(e => this.errmessage = e.response.data.message)
      if(this.errmessage){
        const popup = document.querySelector(".hello");
        popup.style.display = "block";
      }
     },
+    timeFunction() {
+            setTimeout(function(){ window.location.reload(); }, 2000);
+        },
      close() {
       const popup = document.querySelector(".hello");
       popup.style.display = "none";

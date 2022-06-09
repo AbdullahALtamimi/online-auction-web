@@ -287,9 +287,9 @@ export default {
         }
       );
       
-      this.$router.push("/");
+      this.$router.push("/page/1");
       localStorage.setItem("token", response.data.accessToken);
-      window.location.reload();
+      
       }catch(e){
          this.err="invalid username/password"
       }

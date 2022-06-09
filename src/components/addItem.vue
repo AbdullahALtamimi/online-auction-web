@@ -163,13 +163,16 @@ export default {
             Authorization: "bearer " + window.localStorage.getItem("token"),
           },
         })
-        .then((res) => console.log(res));
-
+        .then(this.timeFunction());
+         this.$router.push("/MyItem")
      
     },
     OnFileSelected(event) {
       this.selectedfile = event.target.files[0];
     },
+    timeFunction() {
+            setTimeout(function(){ window.location.reload(); }, 1000);
+        },
    
   },
 };

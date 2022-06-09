@@ -155,8 +155,8 @@ export default {
 </script>
 <style lang="css">
   .homee{
-    margin-left: 6.5rem;
-  width: calc(100% - 8px);
+    margin-left: 2.5rem;
+  width: calc(100% - 40px);;
   height:auto !important;
     position: absolute;
   top: 0;

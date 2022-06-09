@@ -1,5 +1,5 @@
 <template class="bg-gray-700">
-  <div class="body ">
+  <div class="body">
     <nav class="sidebar nav close">
       <header>
         <div class="image-text">
@@ -13,14 +13,14 @@
           </div>
         </div>
 
-        <i class="bx bx-chevron-right toggle"></i>
+        <i class="bx bx-chevron-right toggle shadow-lg"></i>
       </header>
 
       <div class="menu-bar">
         <div class="menu">
           <li class="search-box">
             <i class="bx bx-search icon"></i>
-            <input @keyup.enter="submit" v-model="search" type="text" placeholder="Search..." />
+            <input @keyup.enter="submit()" v-model="search" type="text" placeholder="Search..." />
           </li>
 
           <ul class="menu-links">
@@ -75,10 +75,10 @@
               </a>
             </li></router-link
           >
-          <router-link to="register"
+          <router-link to="/register"
             ><li v-if="!user" class="">
               <a href="#">
-                <i class="bx bx-regester icon"></i>
+                <i class="bx bx-add-to-queue icon"></i>
                 <button class="text nav-text">register</button>
               </a>
             </li></router-link
@@ -88,22 +88,36 @@
     </nav>
 
     <!-- content goes here -->
-    <section class="home">
-        
-    </section>
   </div>
 </template>
 
 <script>
+import axios from "axios"
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "nav",
-  props: ["user"],
+  
      data(){
     return{
       search:"",
-   
+      user:"",
     }
+  },
+  async created(){
+   try{
+       const response = await axios.get("https://online-auction0.herokuapp.com/v1/authenication/user",
+   { 
+     headers: { 
+       Authorization:'bearer ' + window.localStorage.getItem('token') 
+       } 
+       })
+       this.user = response.data;    
+   }catch(e){
+      e;
+   }
+    
+    // eslint-disable-next-line no-empty
+        
   },
   methods: {
     handleclick() {
@@ -111,53 +125,43 @@ export default {
       this.$router.push("/page/1");
       window.location.reload();
     },
+    
     submit(){
-    this.$router.push({
-        name: "home",
-        params: { search: this.search },
-      });
+      
+    this.$router.replace({
+        name: "search",
+        params: { searchkey: this.search },
+      });    
       
   },
      sidebar(){
-         const body = document.querySelector(".body"),
+      const body = document.querySelector(".body"),
       sidebar = body.querySelector(".nav"),
       toggle = body.querySelector(".toggle"),
-      searchBtn = body.querySelector(".search-box"),
-      modeSwitch = body.querySelector(".toggle-switch"),
-      modeText = body.querySelector(".mode-text");
+      searchBtn = body.querySelector(".search-box");
 
-    toggle.addEventListener("click", () => {
+
+      toggle.addEventListener("click", () => {
       sidebar.classList.toggle("close");
     });
 
     searchBtn.addEventListener("click", () => {
       sidebar.classList.remove("close");
-    });
+    })
 
-    modeSwitch.addEventListener("click", () => {
-      body.classList.toggle("dark");
-
-      if (body.classList.contains("dark")) {
-        modeText.innerText = "Light mode";
-      } else {
-        modeText.innerText = "Dark mode";
-      }
-    });
+    
      },
-  },
-  mounted(){
-     this.sidebar()
-  }
-};
+}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 :root {
   /* ===== Colors ===== */
-  --body-color: #e4e9f7;
+  --body-color: #374151;
   --sidebar-color: #fff;
-  --primary-color: #695cfe;
+  --primary-color: #374151;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
   --text-color: #707070;
@@ -361,7 +365,7 @@ header .image-text .profession {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: scroll;
+  
 }
 .menu-bar::-webkit-scrollbar {
   display: none;
@@ -432,25 +436,23 @@ header .image-text .profession {
   position: absolute;
   top: 0;
   top: 0;
-  left: 250px;
-  height: 100vh;
+  left: 200px;
+  height: 100%;
   width: calc(100% - 250px);
   background-color: var(--body-color);
   transition: var(--tran-05);
 }
-.home .text {
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--text-color);
-  padding: 12px 60px;
-}
+
 
 .sidebar.close ~ .home {
   left: 78px;
   height: 100vh;
-  width: calc(100% - 78px);
+  max-width: calc(100% - 78px);
 }
 .body.dark .home .text {
   color: var(--text-color);
+}
+.home{
+  height:100%;
 }
 </style>

@@ -97,7 +97,7 @@
               <div class="font-bold text-xl mb-2">
                 <span class="text-blue-500">Price:</span>
                 <span class="text-white">
-                  ${{ auction.item.startingPrice }}
+                  ${{ auction.currentPrice }}
                 </span>
               </div>
               <div class="font-bold text-xl mb-2">
@@ -266,12 +266,15 @@ export default {
         {
           id: itemid,
         }
-      ).catch(e => this.errmessage = e.response.data.message)
+      ).then(this.timeFunction()).catch(e => this.errmessage = e.response.data.message)
      if(this.errmessage){
        const popup = document.querySelector(".hello");
        popup.style.display = "block";
      }
     },
+    timeFunction() {
+            setTimeout(function(){ window.location.reload(); }, 2000);
+        },
      close() {
       const popup = document.querySelector(".hello");
       popup.style.display = "none";
@@ -304,7 +307,7 @@ export default {
       this.uuser = this.user;
       this.total = res.data.pageCount
       
-      
+      console.log(res.data.data.currentPrice)
        
     },
     changeRoute() {
@@ -336,8 +339,8 @@ export default {
 </script>
 <style lang="css">
 .home {
-  margin-left: -6rem;
-  width: calc(100% - 8px);
+  margin-left: -10rem;
+  width: calc(100% - 40px);
   height:auto !important;
 
 }
