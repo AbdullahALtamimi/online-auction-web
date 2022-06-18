@@ -30,12 +30,20 @@
                   </h1>
                   <div class="flex mb-4">
                     <div>
+                    <p>
+                        <span class="text-blue-400 text-xl"
+                          >Owner's name: </span
+                        >
+                        <span class="text-white"
+                          > {{ item.username }}</span
+                        >
+                      </p>
                       <p>
                         <span class="text-blue-400 text-xl"
                           >starting price:</span
                         >
                         <span class="text-white"
-                          >${{ item.item.startingPrice }}</span
+                          > ${{ item.item.startingPrice }}</span
                         >
                       </p>
                       <p>
@@ -226,7 +234,8 @@ export default {
           }
         )
         .then((res) => {
-          this.item = res.data;
+          this.item = res.data,
+          console.log(this.item)
         });
     } catch (e) {
       console.log(e.response.data);

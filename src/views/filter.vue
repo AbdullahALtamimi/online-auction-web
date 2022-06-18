@@ -20,7 +20,7 @@
         <div class="p-10 w-1/1 md:w-1/3  float-left">
           <div
             
-            class="bg-gray-800 rounded-md flex flex-col overflow-hidden height cursor-pointer shadow-xl"
+            class="bg-gray-800 rounded-md flex flex-col overflow-hidden height shadow-xl"
           >
           <div class="relative">
             <img class="w-full h-48 object-cover " :src="auction.item.photoUrl" />
@@ -42,7 +42,7 @@
             </button>
             </div>
           </div>
-            <div @click="expand(auction.id)" class="px-6 py-4">
+            <div @click="expand(auction.id)" class="px-6 cursor-pointer py-4">
               <div class="font-bold text-xl mb-2">
                 <span class="text-blue-500">name:</span>
                 <span class="text-white">{{ auction.item.name }}</span>
@@ -114,6 +114,7 @@ export default {
       this.size = this.auc.length
       console.log(this.size)
     },
+    
     methods:{
        deletitem(itemid) {
       
@@ -134,6 +135,19 @@ export default {
        const popup = document.querySelector(".hello");
        popup.style.display = "block";
      }
+    },
+    claimitem(id) {
+      axios.patch(
+        `https://online-auction0.herokuapp.com/v1/endAuction?auctionId=${id}`,
+        {
+          auctionId: id,
+        },
+        {
+          headers: {
+            Authorization: "bearer " + window.localStorage.getItem("token"),
+          },
+        }
+      );
     },
     timeFunction() {
             setTimeout(function(){ window.location.reload(); }, 2000);

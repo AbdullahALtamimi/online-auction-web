@@ -67,6 +67,10 @@
             id="date"
           />
         </div>
+        <div v-if="errmessage" class=" bg-red-700 mt-4 rounded-md">
+          <p  class="text-white text-center mt-2">{{ errmessage }}</p>
+          
+        </div>
         <div class="mt-3 flex justify-end space-x-3">
           <button
             class="px-3 py-1 rounded hover:bg-red-300 hover:bg-opacity-50 hover:text-red-900"
@@ -97,6 +101,7 @@ export default {
       date: "",
       currentselecteditem: "",
       name:"",
+      errmessage:""
     };
   },
 
@@ -119,10 +124,12 @@ export default {
     close() {
       const popup = document.querySelector(".hello");
       popup.style.display = "none";
+      this.errmessage = "";
     },
     async sendauc() {
       var date = new Date(this.date);
       const isoStr = date.toISOString();
+      
       await axios.post(
         "https://online-auction0.herokuapp.com/v1/auction",
         {
@@ -134,8 +141,17 @@ export default {
             Authorization: "bearer " + window.localStorage.getItem("token"),
           },
         }
+      ).then().catch(err => this.errmessage = err.response.data.message,
       );
+      
+      if(!this.errmessage){
+        this.$router.push("/page/1")
+      }
+      
     },
+    timeFunction() {
+            setTimeout(function(){ this.errmessage="" }, 2000);
+        },
     deletitem(itemid) {
       axios.delete(
         `https://online-auction0.herokuapp.com/v1/item?itemId=${itemid}`,
